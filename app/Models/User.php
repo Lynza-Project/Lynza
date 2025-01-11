@@ -32,10 +32,6 @@ class User extends Authenticatable implements HasName, FilamentUser
         if ($panel->getId() === 'superadmin') {
             return auth()->user()->role === 'super-admin';
         }
-        if ($panel->getId() === 'admin') {
-            return auth()->user()->role === 'super-admin' || auth()->user()->role === 'admin';
-        }
-
         return false;
     }
 
