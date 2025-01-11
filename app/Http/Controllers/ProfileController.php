@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Storage;
 
 class ProfileController extends Controller
 {
@@ -30,6 +31,17 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            if ($request->user()->profile_picture) {
+                Storage::disk('minio')->delete($request->user()->profile_picture);
+            }
+
+            $filename = 'profile-pictures/' . $request->user()->id . '.' . $request->file('profile_picture')?->getClientOriginalExtension();
+            Storage::disk('minio')->put($filename, file_get_contents($request->file('profile_picture')));
+
+            $request->user()->profile_picture = $filename;
         }
 
         $request->user()->save();

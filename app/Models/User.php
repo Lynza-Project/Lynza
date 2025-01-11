@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Panel;
+use Illuminate\Support\Facades\Storage;
+use JetBrains\PhpStorm\NoReturn;
 
 class User extends Authenticatable implements HasName, FilamentUser
 {
@@ -59,6 +61,10 @@ class User extends Authenticatable implements HasName, FilamentUser
         'remember_token',
     ];
 
+    protected $appends = [
+        'profile_picture_url',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -75,5 +81,22 @@ class User extends Authenticatable implements HasName, FilamentUser
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * Accessor pour générer une URL temporaire pour profile_picture.
+     *
+     * @return string|null
+     */
+    protected function getProfilePictureUrlAttribute(): ?string
+    {
+        // Si le champ profile_picture n'est pas défini, retourner null
+        if (!$this->attributes['profile_picture']) {
+            return null;
+        }
+
+        // Génère une URL temporaire avec une durée de 1 heure
+        return Storage::disk('minio')
+            ->temporaryUrl($this->attributes['profile_picture'], now()->addHour());
     }
 }
