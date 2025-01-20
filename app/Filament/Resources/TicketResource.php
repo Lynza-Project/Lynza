@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TicketResource\Pages;
+use App\Filament\Resources\TicketResource\RelationManagers\MessageRelationManager;
 use App\Models\Organization;
 use App\Models\Ticket;
 use App\Models\User;
@@ -195,5 +196,12 @@ class TicketResource extends Resource
         }
 
         return $details;
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            MessageRelationManager::class,
+        ];
     }
 }
