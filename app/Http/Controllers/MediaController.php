@@ -6,12 +6,16 @@ use App\Http\Requests\MediaRequest;
 use App\Models\Media;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class MediaController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, Media>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', Media::class);
 

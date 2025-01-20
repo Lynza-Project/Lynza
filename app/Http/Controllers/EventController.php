@@ -6,12 +6,16 @@ use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class EventController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, Event>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', Event::class);
 

@@ -6,12 +6,16 @@ use App\Http\Requests\DocumentationRequest;
 use App\Models\Documentation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class DocumentationController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, Documentation>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', Documentation::class);
 

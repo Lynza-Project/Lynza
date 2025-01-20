@@ -6,12 +6,16 @@ use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class NewsController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, News>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', News::class);
 

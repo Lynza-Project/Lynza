@@ -6,12 +6,16 @@ use App\Http\Requests\TicketMessageRequest;
 use App\Models\TicketMessage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class TicketMessageController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, TicketMessage>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', TicketMessage::class);
 

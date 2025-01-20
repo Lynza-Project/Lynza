@@ -6,12 +6,16 @@ use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class OrganizationController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, Organization>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', Organization::class);
 

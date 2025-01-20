@@ -6,12 +6,16 @@ use App\Http\Requests\LostAndFoundRequest;
 use App\Models\LostAndFound;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class LostAndFoundController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, LostAndFound>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', LostAndFound::class);
 

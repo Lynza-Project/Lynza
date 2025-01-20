@@ -6,12 +6,16 @@ use App\Http\Requests\ThemeRequest;
 use App\Models\Theme;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class ThemeController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return Collection<int, Theme>
+     */
+    public function index(): Collection
     {
         $this->authorize('viewAny', Theme::class);
 

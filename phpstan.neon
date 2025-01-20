@@ -1,0 +1,8 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+    paths:
+        - app
+    level: 9
+    ignoreErrors:
+    excludePaths: [app/Filament/, app/Http/Controllers/Auth/, app/Http/Controllers/ProfileController.php, app/Models/, app/Policies]
