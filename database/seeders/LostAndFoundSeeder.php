@@ -26,7 +26,7 @@ class LostAndFoundSeeder extends Seeder
                     'description' => 'Description de l’objet perdu ' . $i,
                     'lost_and_found_category_id' => $categories->random()->id,
                     'location' => 'Lieu ' . random_int(1, 10),
-                    'status' => random_int(0, 1) ? 'trouvé' : 'perdu',
+                    'status' => random_int(0, 1) ? 'found' : 'lost',
                 ]);
             }
         }

@@ -14,7 +14,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Panel;
 use Illuminate\Support\Facades\Storage;
-use JetBrains\PhpStorm\NoReturn;
 
 class User extends Authenticatable implements HasName, FilamentUser
 {
