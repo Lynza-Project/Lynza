@@ -9,6 +9,8 @@ class CreateEvent extends CreateRecord
 {
     protected static string $resource = EventResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [

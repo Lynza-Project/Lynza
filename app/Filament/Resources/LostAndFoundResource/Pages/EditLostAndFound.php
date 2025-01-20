@@ -12,6 +12,8 @@ class EditLostAndFound extends EditRecord
 {
     protected static string $resource = LostAndFoundResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

@@ -12,6 +12,8 @@ class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

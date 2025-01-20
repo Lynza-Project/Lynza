@@ -12,6 +12,8 @@ class EditTicket extends EditRecord
 {
     protected static string $resource = TicketResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

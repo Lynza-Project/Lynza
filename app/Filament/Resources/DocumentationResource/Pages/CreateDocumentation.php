@@ -9,6 +9,8 @@ class CreateDocumentation extends CreateRecord
 {
     protected static string $resource = DocumentationResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [

@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AddressResource\Pages;
 use App\Models\Address;
+use Exception;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,53 +30,77 @@ class AddressResource extends Resource
 
     protected static ?string $slug = 'addresses';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $breadcrumb = 'Adresses';
+
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+
+    protected static ?string $navigationLabel = 'Adresses';
+
+    protected static ?string $label = 'Gestion des adresses';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return Address::count();
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('number')
+                    ->name('Numéro')
                     ->required(),
 
                 TextInput::make('name')
+                    ->name('Nom de la rue')
                     ->required(),
 
                 TextInput::make('zip_code')
+                    ->name('Code Postal')
                     ->required()
                     ->integer(),
 
                 TextInput::make('country')
+                    ->name('Pays')
                     ->required(),
 
                 TextInput::make('region')
+                    ->name('Région')
                     ->required(),
 
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn(?Address $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn(?Address $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                Section::make('Informations')
+                    ->columns(2)
+                    ->schema([
+                        Placeholder::make('created_at')
+                            ->label('Créé le')
+                            ->content(fn(?Address $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+
+                        Placeholder::make('updated_at')
+                            ->label('Mis à jour le')
+                            ->content(fn(?Address $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ]),
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('number'),
+                TextColumn::make('number')->label('Numéro'),
 
-                TextColumn::make('name')
+                TextColumn::make('name')->label('Nom de la rue')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('zip_code'),
+                TextColumn::make('zip_code')->label('Code Postal'),
 
-                TextColumn::make('country'),
+                TextColumn::make('country')->label('Pays'),
 
-                TextColumn::make('region'),
+                TextColumn::make('region')->label('Région'),
             ])
             ->filters([
                 TrashedFilter::make(),

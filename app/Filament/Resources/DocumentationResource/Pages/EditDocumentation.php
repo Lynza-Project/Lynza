@@ -12,6 +12,8 @@ class EditDocumentation extends EditRecord
 {
     protected static string $resource = DocumentationResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

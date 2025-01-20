@@ -9,6 +9,8 @@ class CreateAddress extends CreateRecord
 {
     protected static string $resource = AddressResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [

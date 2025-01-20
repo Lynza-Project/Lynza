@@ -9,6 +9,8 @@ class CreateLostAndFoundCategory extends CreateRecord
 {
     protected static string $resource = LostAndFoundCategoryResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [

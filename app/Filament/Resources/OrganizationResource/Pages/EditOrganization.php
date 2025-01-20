@@ -12,6 +12,8 @@ class EditOrganization extends EditRecord
 {
     protected static string $resource = OrganizationResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

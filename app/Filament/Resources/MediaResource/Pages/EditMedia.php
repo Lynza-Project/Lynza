@@ -12,6 +12,8 @@ class EditMedia extends EditRecord
 {
     protected static string $resource = MediaResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

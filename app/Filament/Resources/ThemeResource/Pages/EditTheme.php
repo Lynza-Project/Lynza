@@ -12,6 +12,8 @@ class EditTheme extends EditRecord
 {
     protected static string $resource = ThemeResource::class;
 
+    protected static ?string $title = 'Formulaire de modification';
+
     protected function getHeaderActions(): array
     {
         return [

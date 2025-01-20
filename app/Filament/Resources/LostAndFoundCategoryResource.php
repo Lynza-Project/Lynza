@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LostAndFoundCategoryResource\Pages;
 use App\Models\LostAndFoundCategory;
+use Exception;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,30 +30,50 @@ class LostAndFoundCategoryResource extends Resource
 
     protected static ?string $slug = 'lost-and-found-categories';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $breadcrumb = 'Catégorie d\'objets trouvés et perdus';
+
+    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
+
+    protected static ?string $navigationLabel = 'Catégorie d\'objets trouvés et perdus';
+
+    protected static ?string $label = 'Gestion des catégories d\'objets trouvés et perdu';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return LostAndFoundCategory::count();
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label('Nom')
                     ->required(),
 
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn(?LostAndFoundCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                Section::make('Informations')
+                    ->columns(2)
+                    ->schema([
+                        Placeholder::make('created_at')
+                            ->label('Créé le')
+                            ->content(fn(?LostAndFoundCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn(?LostAndFoundCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                        Placeholder::make('updated_at')
+                            ->label('Mis à jour le')
+                            ->content(fn(?LostAndFoundCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ]),
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nom')
                     ->searchable()
                     ->sortable(),
             ])

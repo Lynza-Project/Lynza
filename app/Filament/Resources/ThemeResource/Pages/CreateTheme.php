@@ -9,6 +9,8 @@ class CreateTheme extends CreateRecord
 {
     protected static string $resource = ThemeResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [

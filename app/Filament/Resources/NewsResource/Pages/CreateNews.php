@@ -9,6 +9,8 @@ class CreateNews extends CreateRecord
 {
     protected static string $resource = NewsResource::class;
 
+    protected static ?string $title = 'Formulaire de création';
+
     protected function getHeaderActions(): array
     {
         return [
