@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+    lynza-prod:
+        restart: unless-stopped
+        container_name: lynza-prod-app
+        build:
+            context: ../..
+            dockerfile: ./deploy/prod/Dockerfile
+        volumes:
+            - ../storage/app:/var/www/html/storage/app
+        environment:
+            APP_NAME: ${APP_NAME}
+            APP_ENV: ${APP_ENV}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_KEY: ${APP_KEY}
+            APP_VERSION: ${APP_VERSION}
+            APP_URL: ${APP_URL}
+            DB_CONNECTION: mysql
+            DB_HOST: database
+            DB_PORT: 3306
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            MAIL_MAILER: ${MAIL_MAILER}
+            MAIL_HOST: ${MAIL_HOST}
+            MAIL_PORT: ${MAIL_PORT}
+            MAIL_USERNAME: ${MAIL_USERNAME}
+            MAIL_PASSWORD: ${MAIL_PASSWORD}
+            MAIL_ENCRYPTION: ${MAIL_ENCRYPTION}
+            MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+            MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+        ports:
+            - "8080:80"
+        networks:
+            - n-lynza-prod
+        depends_on:
+            - v-database-lynza-prod
+
+    database-lynza-prod:
+        restart: unless-stopped
+        image: mariadb:lts-jammy
+        volumes:
+            - v-database-lynza-prod:/var/lib/mysql
+        environment:
+            MARIADB_DATABASE: ${DB_DATABASE}
+            MARIADB_USER: ${DB_USERNAME}
+            MARIADB_PASSWORD: ${DB_PASSWORD}
+            MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        networks:
+            - n-lynza-prod
+
+volumes:
+    v-database-lynza-prod:
+
+
+networks:
+    n-lynza-prod:
+        driver: bridge
+
